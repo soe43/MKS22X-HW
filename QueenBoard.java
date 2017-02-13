@@ -4,52 +4,88 @@ public class QueenBoard{
 
     public Queenboard(int size){
 	board = new int[size][size];
-	for(int i = 0;i<board.size;i++){
-	    for(int k = 0;k<board[0].size;i++){
+	for(int i = 0;i<board.length;i++){
+	    for(int k = 0;k<board[0].length;i++){
 		board[i][k] == 0;
 	    }
 	}
     }
 
+    //Wrapper function for solveH.
     public boolean solve(){
 	return solveH(0);
     }
 
+    //Method that solves for one possible solution of a given board.
     private boolean solveH(int col){
-	if(col > board.size){
-	    return checkSolution();
+	if(col >= board.length){
+	    return true;
 	}
-	for(int row = 0;row < board.size;row++){
-	    if(canAddQueen?(row,col)){
-		    addQueen(row,col);
-		}
+	if(board.length == 2 || board.length == 3){
+	    return false;
 	}
-    }
-    	    
-    private boolean canAddQueen?(int row,int col){
-	for(int i = 0;i<board.size;i++){
-	    if(board[row][col] == -1 && (board[row][i] > 0 || board[row][i] == -1) || (board[i][col] > 0 || board[i][col] == -1) ||((board[row - i][col - i] > 0 || board[row - i][col - i] == -1) && (i < row && i < col)) || ((board[row + i][col + i] == -1 || board[row+i][col+i] > 0) && (i<board.size - row && i<board.size - col))){
+	for(int row = 0; row < board.length; row++){
+	    if(board[row][col] == 0){
+		addQueen(row,col);
+		return solveH(col+1);
+	    }
+	    if(row >= board.length){
 		return false;
 	    }
 	}
-	return true;
+
     }
-	
+    
+    //Adds a queen to row,column and adds all of the danger markers that it threatens
     private void addQueen(int row,int col){
-	for(int i = 0;i<board.size;i++){
+	for(int i = 0;i<board.length;i++){
 	    board[row][i] += 1;
 	    board[i][col] += 1;
-	    if(i < row && i < col){
-		board[row - i][col - i] += 1;
+	    if(i < row){
+		if(i < col){
+		    board[row - i][col - i] += 1;
+		}else{
+		    board[row - i][col + i] += 1;
+		}
 	    }
-	    if(i > row && i > col){
-		board[row + i][col + i] += 1;
+	    if(i > row){
+		if(i < col){
+		    board[row + i][col - i] += 1;
+		}else{
+		    board[row + i][col + i] += 1;
+		}
 	    }
-	    board[row][col] == -1;
 	}
     }
-		
 
+    //Removes the queen in row,column and removes all of the danger markers it added to the board.
+    private void removeQueen(int row,int col){
+	for(int i = 0;i < board.length;i++){
+	    board[row][i] -= 1;
+	    board[i][col] -= 1;
+	    if(i < row){
+		if(i < col){
+		    board[row - i][col - i] -= 1;
+		}else{
+		    board[row - i][col + i] -= 1;
+		}
+	    }
+	    if(i > row){
+		if(i < col){
+		    board[row + i][col - i] -= 1;
+		}else{
+		    board[row + i][col + i] -= 1;
+		}
+	    }
+	    board[row][col] == 0;
+	}
+    }
+
+    //Finds all possible solutions to an N-sized board.
+    public void countSolutions(){
+    }
+
+    //Calculates the number of all possible solutions for an N-sized board.
     public int getSolutionCount(){
 	return -1;
     }

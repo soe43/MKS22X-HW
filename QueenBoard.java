@@ -1,6 +1,6 @@
 public class QueenBoard{
     private int[][]board;
-    private int solutionCount = -1;
+    private int solutionCount;
 
     public QueenBoard(int size){
 	board = new int[size][size];
@@ -9,6 +9,7 @@ public class QueenBoard{
 		board[i][k] = 0;
 	    }
 	}
+	solutionCount = -1;
     }
 
     //Wrapper function for solveH.
@@ -51,15 +52,15 @@ public class QueenBoard{
     //Adds a queen to row,column and adds all of the danger markers that it threatens
     private void addQueen(int col,int row){
 	board[col][row] = -1;
-	for(int i = 0; i<board.length;i++){
-	    if(i != col){
-		board[i][row] += 1;
+	for(int k = 0; k<board.length;k++){
+	    if(k != col){
+		board[k][row] += 1;
 	    }
-	    if((i - col + row >= 0) && (i - col + row < board.length) && (i != col)){
-		board[i][i - col + row] += 1;
+	    if((k - col + row >= 0) && (k - col + row < board.length) && (k != col)){
+		board[k][k - col + row] += 1;
 	    }
-	    if ((i != col) &&  ((-1*i) + col + row >= 0) && ((-1*i) + row + col < board.length)) {
-		board[i][(-1*i) + row + col] += 1;
+	    if ((k != col) &&  ((-1*k) + col + row >= 0) && ((-1*k) + row + col < board.length)) {
+		board[k][(-1*k) + row + col] += 1;
 	    }
 	}
     }
@@ -68,15 +69,15 @@ public class QueenBoard{
     //Removes the queen in row,column and removes all of the danger markers it added to the board.
     private void removeQueen(int col,int row){
 	board[col][row] += 1;
-	for(int i = 0; i<board.length;i++){
-	    if(i != col){
-		board[i][row] -= 1;
+	for(int k = 0; k<board.length;k++){
+	    if(k != col){
+		board[k][row] -= 1;
 	    }
-	    if((i - col + row >= 0) && (i - col + row < board.length) && (i != col)){
-		board[i][i - col + row] -= 1;
+	    if((k - col + row >= 0) && (k - col + row < board.length) && (k != col)){
+		board[k][k - col + row] -= 1;
 	    }
-	    if ((i != row) &&  ((-1*i) + row + col >= 0) && ((-1*i) + row + col < board.length)) {
-		board[i][(-1*i) + row + col] -= 1;
+	    if ((k != col) &&  ((-1*k) + row + col >= 0) && ((-1*k) + row + col < board.length)) {
+		board[k][(-1*k) + row + col] -= 1;
 	    }
 	}
     }

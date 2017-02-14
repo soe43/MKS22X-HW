@@ -99,7 +99,7 @@ public class QueenBoard{
 	for(int i = 0;i<board.length;i++){
 	    for(int k = 0;k<board.length;k++){
 		if(board[i][k] == -1){
-		    layout += "Q ";
+		    layout += "Q";
 		}else{
 		    layout += board[i][k];
 		}
@@ -136,5 +136,17 @@ public class QueenBoard{
 	System.out.println(b.debug());
 	b.countSolutions();
 	System.out.println(b.getSolutionCount());
+	QueenBoard c = new QueenBoard(2);
+	c.solve();
+	System.out.println(c);
+	System.out.println(c.debug());
+	c.countSolutions();
+	System.out.println(c.getSolutionCount());
+	QueenBoard d = new QueenBoard(1);
+	d.solve();
+	System.out.println(d);
+	System.out.println(d.debug());
+	d.countSolutions();
+	System.out.println(d.getSolutionCount());
     }
 }

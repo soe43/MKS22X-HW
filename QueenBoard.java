@@ -21,7 +21,7 @@ public class QueenBoard{
     private boolean solveH(int col, boolean checkSolution){
 	if(col == board.length){
 	    if(checkSolution){
-		solutionCount+= 1;
+		solutionCount += 1;
 		return false;
 	    }else{
 		return true;
@@ -84,7 +84,7 @@ public class QueenBoard{
 
     //Finds all possible solutions to an N-sized board.
     public void countSolutions(){
-	board = new int[board.length][board[0].length];
+	board = new int[board.length][board.length];
 	solutionCount += 1;
 	solveH(0,true);
     }
@@ -134,6 +134,7 @@ public class QueenBoard{
 	b.solve();
 	System.out.println(b);
 	System.out.println(b.debug());
+	b.countSolutions();
 	System.out.println(b.getSolutionCount());
     }
 }

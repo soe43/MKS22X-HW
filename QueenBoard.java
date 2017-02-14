@@ -13,28 +13,36 @@ public class QueenBoard{
 
     //Wrapper function for solveH.
     public boolean solve(){
-	return solveH(0);
+	return solveH(0,false);
     }
 
     //Method that solves for one possible solution of a given board.
-    private boolean solveH(int col){
+    private boolean solveH(int col, boolean checkSolution){
 	if(col == board.length){
-	    return true;
+	    if(checkSolution){
+		solutionCount+= 1;
+		return false;
+	    }else{
+		return true;
+	    }
 	}
 	if(board.length == 2 || board.length == 3){
 	    return false;
 	}
 	for(int row = 0; row < board.length; row++){
-	    if(board[row][col] == 0){
+	    if(board[col][row] == 0){
 		addQueen(col,row);
-		if(solveH(col+1)){
-		    return true;
+		if(solveH(col+1,checkSolution)){
+		    if(!checkSolution){
+			return true;
+		    }else{
+			solutionCount += 1;
+			return false;
+		    }
 		}
 		else{
-		    return false;
+		    removeQueen(col,row);
 		}
-	    }else{
-		removeQueen(col,row);
 	    }
 	}
 	return false;
@@ -75,11 +83,14 @@ public class QueenBoard{
 
     //Finds all possible solutions to an N-sized board.
     public void countSolutions(){
+	board = new int[board.length][board[0].length];
+	solutionCount += 1;
+	solveH(0,true);
     }
 
     //Calculates the number of all possible solutions for an N-sized board.
     public int getSolutionCount(){
-	return -1;
+	return solutionCount;
     }
 
     public String debug(){
@@ -118,9 +129,10 @@ public class QueenBoard{
     }
 
     public static void main(String[]args){
-	QueenBoard b = new QueenBoard(4);
+	QueenBoard b = new QueenBoard(10);
 	b.solve();
-	System.out.println(b.toString());
+	System.out.println(b);
 	System.out.println(b.debug());
+	System.out.println(b.getSolutionCount());
     }
 }

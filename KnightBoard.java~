@@ -1,0 +1,5 @@
+public class KnightBoard{
+    public int[][] board;
+    private final int[] rowChoose = {-2, -1, 1, 2};
+    private final int[] colChoose = {-2, -1, 1, 2};
+}

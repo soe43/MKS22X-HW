@@ -1,7 +1,5 @@
 public class KnightBoard{
     public int[][] board;
-    private final int[] rowChoose = {-2, -1, 1, 2};
-    private final int[] colChoose = {-2, -1, 1, 2};
 
     public KnightBoard(int startingRows, int startingCols){
 	board = new int[startingRows][startingCols];
@@ -13,29 +11,127 @@ public class KnightBoard{
     }
 
     public void solve(){ 
-	solveH(0,0,0);
+	solveH(0,0,1);
     }
 
     public boolean solveH(int row, int col, int level){
 	if(level == board.length * board[0].length){
 	    return true;
 	}
-	for(int i = 0;i < rowChoose.length;i++){
-	    for(int k = 0;k < colChoose.length;k++){
-		if(rowChoose[i] + colChoose[k] == 3 || rowChoose[i] + colChoose[k] == -3 || rowChoose[i] + colChoose[k] == 1 || rowChoose[i] + colChoose[k] == -1 ){
-		    if((row - rowChoose[i] > 0 &&  row - rowChoose[i] < board.length) && (col - colChoose[k] > 0 && col - colChoose[k] < board.length)){
-			if(board[row + rowChoose[i]][col + colChoose[k]] == 0){
-				if(solveH(row+rowChoose[i],col+colChoose[i],level + 1)){
-				    board[row][col] = level;
-				}
-			    }
-		    }
+	if((row + 2 > 0 && row + 2 < board.length) && (col + 1 > 0 && col + 1 < board.length)){
+	    if(board[row+2][col+1] == 0){
+		if(solveH(row+2,col+1,level+1)){
+		    board[row][col] = level;
+		    return true;
 		}
+		else{
+		    return false;
+		}
+	    }
+	    else{
+		return false;
+	    }
+	}
+	if((row + 2 > 0 && row + 2 < board.length) && (col - 1 > 0 && col - 1 < board.length)){
+	    if(board[row+2][col-1] == 0){
+		if(solveH(row+2,col-1,level+1)){
+		    board[row][col] = level;
+		    return true;
+		}
+		else{
+		    return false;
+		}
+	    }
+	    else{
+		return false;
+	    }
+	}
+	if((row + 1 > 0 && row + 1 < board.length) && (col + 2 > 0 && col + 2 < board.length)){
+	    if(board[row+1][col+2] == 0){
+		if(solveH(row+1,col+2,level+1)){
+		    board[row][col] = level;
+		    return true;
+		}
+		else{
+		    return false;
+		}
+	    }
+	    else{
+		return false;
+	    }
+	}
+	if((row + 1 > 0 && row + 1 < board.length) && (col - 2 > 0 && col - 2 < board.length)){
+	    if(board[row+1][col-2] == 0){
+		if(solveH(row+2,col+1,level+1)){
+		    board[row][col] = level;
+		    return true;
+		}
+		else{
+		    return false;
+		}
+	    }
+	    else{
+		return false;
+	    }
+	}
+	if((row - 1 > 0 && row - 1 < board.length) && (col + 2 > 0 && col + 2 < board.length)){
+	    if(board[row-1][col+2] == 0){
+		if(solveH(row-1,col+2,level+1)){
+		    board[row][col] = level;
+		    return true;
+		}
+		else{
+		    return false;
+		}
+	    }
+	    else{
+		return false;
+	    }
+	}
+	if((row - 1 > 0 && row - 1 < board.length) && (col - 2  > 0 & col - 2 < board.length)){
+	    if(board[row-1][col-2] == 0){
+		if(solveH(row-1,col-2,level+1)){
+		    board[row][col] = level;
+		    return true;
+		}
+		else{
+		    return false;
+		}
+	    }
+	    else{
+		return false;
+	    }
+	}
+	if((row - 2 > 0 && row - 2 < board.length) && (col + 1 > 0 && col + 1 < board.length)){
+	    if(board[row-2][col+1] == 0){
+		if(solveH(row-2,col+1,level+1)){
+		    board[row][col] = level;
+		    return true;
+		}
+		else{
+		    return false;
+		}
+	    }
+	    else{
+		return false;
+	    }
+	}
+	if((row - 2 > 0 && row - 2 < board.length) && (col - 1 > 0 && col - 1 < board.length)){
+	    if(board[row-2][col-1] == 0){
+		if(solveH(row-2,col-1,level+1)){
+		    board[row][col] = level;
+		    return true;
+		}
+		else{
+		    return false;
+		}
+	    }
+	    else{
+		return false;
 	    }
 	}
 	return false;
     }
-
 
     public String toString(){
 	String layout = "";

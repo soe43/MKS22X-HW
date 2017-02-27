@@ -11,7 +11,11 @@ public class KnightBoard{
     }
 
     public void solve(){ 
+	if(board.length == 1 && board[0].length == 1){
+	    board[0][0] = 1;
+	}else{
 	solveH(0,0,1);
+	}
     }
     /*
     public boolean solveH(int row, int col, int level){
@@ -190,25 +194,25 @@ public class KnightBoard{
 	if(isLegal(row - 2,col + 1) && solveH(row - 2,col + 1,level+1)){
 	    return true;
 	}
-	if(isLegal(row - 2,col - 1) && solveH(row - 2,col - 1,level+1)){
-	    return true;
-	}
-	if(isLegal(row - 1,col + 2) && solveH(row - 1,col + 2,level+1)){
-	    return true;
-	}
 	if(isLegal(row - 1,col - 2) && solveH(row - 1,col - 2,level+1)){
 	    return true;
 	}
 	if(isLegal(row + 1,col + 2) && solveH(row + 1,col + 2,level+1)){
 	    return true;
 	}
+	if(isLegal(row + 2,col - 1) && solveH(row + 2,col - 1,level+1)){
+	    return true;
+	}
+	if(isLegal(row - 2,col - 1) && solveH(row - 2,col - 1,level+1)){
+	    return true;
+	}
 	if(isLegal(row + 1,col - 2) && solveH(row + 1,col - 2,level+1)){
 	    return true;
 	}
-	if(isLegal(row + 2,col + 1) && solveH(row + 2,col + 1,level+1)){
+	if(isLegal(row - 1,col + 2) && solveH(row - 1,col + 2,level+1)){
 	    return true;
 	}
-	if(isLegal(row + 2,col - 1) && solveH(row + 2,col - 1,level+1)){
+	if(isLegal(row + 2,col + 1) && solveH(row + 2,col + 1,level+1)){
 	    return true;
 	}
 	board[row][col] = 0;
@@ -232,9 +236,14 @@ public class KnightBoard{
     }
 
     public static void main(String[]args){
-	KnightBoard b = new KnightBoard(5,5);
-	b.solve();
-	System.out.println(b);
+	for(int i = 1;i < 8;i++){
+	    long startTime = System.currentTimeMillis();
+	    KnightBoard b = new KnightBoard(i,i);
+	    b.solve();
+	    System.out.println(b);
+	    long endTime = System.currentTimeMillis();
+	    System.out.println("Time: " + ((endTime - startTime)/1000));
+	}
     }
 }
 

@@ -237,12 +237,14 @@ public class KnightBoard{
 
     public static void main(String[]args){
 	for(int i = 1;i < 8;i++){
+	    for(int k = 1; k < 8;k++){
 	    long startTime = System.currentTimeMillis();
-	    KnightBoard b = new KnightBoard(i,i);
+	    KnightBoard b = new KnightBoard(i,k);
 	    b.solve();
 	    System.out.println(b);
 	    long endTime = System.currentTimeMillis();
-	    System.out.println("Time: " + ((endTime - startTime)/1000));
+	    System.out.println("Time: " + (endTime - startTime));
+	    }
 	}
     }
 }

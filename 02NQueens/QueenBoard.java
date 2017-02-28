@@ -128,25 +128,4 @@ public class QueenBoard{
 	}
 	return layout;
     }
-
-    public static void main(String[]args){
-	QueenBoard b = new QueenBoard(10);
-	b.solve();
-	System.out.println(b);
-	System.out.println(b.debug());
-	b.countSolutions();
-	System.out.println(b.getSolutionCount());
-	QueenBoard c = new QueenBoard(2);
-	c.solve();
-	System.out.println(c);
-	System.out.println(c.debug());
-	c.countSolutions();
-	System.out.println(c.getSolutionCount());
-	QueenBoard d = new QueenBoard(1);
-	d.solve();
-	System.out.println(d);
-	System.out.println(d.debug());
-	d.countSolutions();
-	System.out.println(d.getSolutionCount());
-    }
 }

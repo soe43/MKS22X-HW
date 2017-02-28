@@ -243,7 +243,7 @@ public class KnightBoard{
 	    b.solve();
 	    System.out.println(b);
 	    long endTime = System.currentTimeMillis();
-	    System.out.println("Time: " + (endTime - startTime));
+	    System.out.println("Time: " + ((endTime - startTime)/1000.0) + " Seconds");
 	    }
 	}
     }

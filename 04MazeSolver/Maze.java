@@ -28,10 +28,14 @@ public class Maze{
     }
 
     public static void main(String[]args){
+	if(args.length > 1){
+	    System.out.println("Too many arguments. Input just one file");
+	    System.exit(1);
+	}
 	try{
 	Maze M = new Maze(args[0]);
 	}catch(ArrayIndexOutOfBoundsException e){
-	    System.out.println("Please put in just one file correctly.");
+	    System.out.println("Please input a file");
 	    System.exit(1);
 	}
 	//M.solve;

@@ -26,4 +26,15 @@ public class Maze{
 	    mazeString += inf.nextLine();
 	}
     }
+
+    public static void main(String[]args){
+	try{
+	Maze M = new Maze(args[0]);
+	}catch(ArrayIndexOutOfBoundsException e){
+	    System.out.println("Please put in just one file correctly.");
+	    System.exit(1);
+	}
+	//M.solve;
+	//M.toString();
+    }
 }

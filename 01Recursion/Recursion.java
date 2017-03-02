@@ -13,19 +13,13 @@ public class Recursion{
     }
 
     public static double sqrtHelp(double n, double ans){
+	if(n == 0.0){
+	    return 0.0;
+	}
 	if(Math.abs((ans*ans - n) / (n * 100)) < .000000000001){
 	    return ans;
 	}else{
 	    return sqrtHelp(n,((n / ans) + ans) / 2);
 	}
-    }
-
-    public static void main(String[]args){
-	System.out.println(sqrt(100));
-	System.out.println(sqrt(105));
-	System.out.println(sqrt(1));
-	System.out.println(sqrt(7));
-	System.out.println(sqrt(1024));
-	System.out.println(sqrt(0));
     }
 }

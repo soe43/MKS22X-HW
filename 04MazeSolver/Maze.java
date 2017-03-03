@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Maze{
     private char[][] maze;
-    private String mazeString;
+    private String mazeString = "";
     private int row = 0;
     private int col = 0;
     private boolean animate; 
@@ -44,33 +44,30 @@ public class Maze{
 	    col = infdim.nextLine().length();
 	    row++;
 	}
-	System.out.println(row+" "+col);
 	maze = new char[row][col];
+	boolean foundS = true;
+	boolean foundE = true;
+	String temp = "";
 	try{
 	    for(int i = 0;i < row;i++){
+		if(inf.hasNextLine()){
+		    temp = inf.nextLine();
+		}
 		for(int k = 0;k < col;k++){
-		    maze[i][k] = inf.next().charAt(0);
+		    maze[i][k] = temp.charAt(0);
+		    temp.substring(1);
 		}
 	    }
+	    System.out.println(mazeString);
 	}catch(NoSuchElementException e){
 	    return;
 	}
-	/*
-	while(inf.hasNext()){
-	    mazeString += inf.next(); 
+	if(foundE == false){
+	     throw new NoSuchElementException("No End Point Found");
 	}
-	System.out.println("done");
-	System.out.println(mazeString);
-	Scanner t = new Scanner(mazeString);
-	Scanner f = new Scanner(mazeString);
-	t.useDelimiter("/n");
-	while(t.hasNextLine()){
-	    col = col + 1;
+	if(foundS == false){
+	    throw new NoSuchElementException("No Start Point Found");
 	}
-	System.out.println("done");
-	row = f.nextLine().length();
-	System.out.println("done");
-	*/
     }
 
     public boolean solve(){
@@ -81,18 +78,31 @@ public class Maze{
     private boolean solveH(int startX,int startY){
 	return true;
     }
+
+    public String toString(){
+	String mazeS = "";
+	for(int i = 0;i < maze.length;i++){
+	    for(int k = 0;k < maze[0].length;k++){
+		mazeS += maze[i][k];
+		if(k == maze[0].length - 1){
+		    mazeS += "\n";
+		}		
+	    }
+	}
+	return mazeS;
+    }
     
     public static void main(String[]args){
 	if(args.length > 1){
 	    System.out.println("Too many arguments. Input just one file");
 	    System.exit(1);
 	}
-	try{
-	Maze M = new Maze(args[0]);
-	}catch(ArrayIndexOutOfBoundsException e){
-	    System.out.println("Please input a file");
+	if(args.length == 0){
+	    System.out.println("No Arguments. Please input a file");
 	    System.exit(1);
 	}
+	Maze M = new Maze(args[0]);
+	System.out.println(M.toString());
 	//M.solve;
 	//M.toString();
     }

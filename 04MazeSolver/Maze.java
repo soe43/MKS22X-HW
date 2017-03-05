@@ -19,11 +19,11 @@ public class Maze{
 	}	    
 	for(int i = 0;i <  maze.length;i++){
 	    for(int k = 0;k < maze[0].length;k++){
-		if(maze[i][k] = 'S' || maze[i][k] == 's'){
+		if(maze[i][k] == 'S' || maze[i][k] == 's'){
 		    startx = i;
 		    starty = k;
 		}
-		if(maze[i][k] = 'E' || maze[i][k] == 'e'){
+		if(maze[i][k] == 'E' || maze[i][k] == 'e'){
 		    endx = i;
 		    endy = k;
 		}
@@ -34,13 +34,28 @@ public class Maze{
     private void readFile(String inputF) throws FileNotFoundException{
 	File inputFile = new File(inputF);
 	Scanner inf = new Scanner(inputFile);
-	while(inf.hasNext()){
-	    maze += inf.next();
+	Scanner infdim = new Scanner(inputFile);
+	String temp = "";
+	int rownum = 0;
+	int colnum = 0;
+	while(infdim.hasNextLine()){
+	    rownum++;
+	    colnum = infdim.nextLine().length();
+	}
+	maze = new char[rownum][colnum];
+	for(int r = 0;r < maze.length;r++){
+	    while(inf.hasNextLine()){
+		temp = inf.nextLine();
+		for(int i = 0;i < temp.length();i++){
+		    maze[r][i] = temp.charAt(i);
+		}
+	    }
 	}
     }
 
     public boolean solve(){
 	solveH(0,0);
+	return true;
     }
 
     private boolean solveH(int startX,int startY){

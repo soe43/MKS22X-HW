@@ -19,14 +19,15 @@ public class Maze{
 	}	    
 	for(int i = 0;i <  maze.length;i++){
 	    for(int k = 0;k < maze[0].length;k++){
-		if(maze[i][k] == 'S' || maze[i][k] == 's'){
+		if(maze[i][k] == 'S'){
 		    startx = i;
 		    starty = k;
 		}
-		if(maze[i][k] == 'E' || maze[i][k] == 'e'){
+		if(maze[i][k] == 'E'){
 		    endx = i;
 		    endy = k;
 		}
+		System.out.println("" + startx + starty + endx + endy);
 	    }
 	}
     }
@@ -43,9 +44,11 @@ public class Maze{
 	    colnum = infdim.nextLine().length();
 	}
 	maze = new char[rownum][colnum];
-	for(int r = 0;r < maze.length;r++){
+	System.out.println(rownum + " " + colnum);
+	for(int r = 0;r < rownum;r++){
 	    while(inf.hasNextLine()){
 		temp = inf.nextLine();
+		System.out.println(temp);
 		for(int i = 0;i < temp.length();i++){
 		    maze[r][i] = temp.charAt(i);
 		}
@@ -61,18 +64,27 @@ public class Maze{
     private boolean solveH(int startX,int startY){
 	return true;
     }
+
+    public String toString(){
+	String layout = "";
+	for(int i = 0; i < maze.length;i++){
+	    for(int k = 0; k < maze[0].length;k++){
+		layout += maze[i][k];
+	    }
+	}
+	return layout;
+    }
     
     public static void main(String[]args){
 	if(args.length > 1){
-	    System.out.println("Too many arguments. Input just one file");
-	    System.exit(1);
+	    throw new ArrayIndexOutOfBoundsException("Too many arguments. Input just one file");
 	}
-	try{
+	if(args.length == 0){
+	    throw new ArrayIndexOutOfBoundsException("Please input a file");
+	}
 	Maze M = new Maze(args[0]);
-	}catch(ArrayIndexOutOfBoundsException e){
-	    System.out.println("Please input a file");
-	    System.exit(1);
-	}
+	System.out.println(M.toString());
+
 	//M.solve;
 	//M.toString();
     }

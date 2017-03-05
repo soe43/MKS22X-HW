@@ -5,22 +5,21 @@ public class Recursion{
     }
 
     public static double sqrt(double n){
+	if(n < 0){
+	    throw new IllegalArgumentException();
+	}else{
 	return sqrtHelp(n,n/2);
+	}
     }
 
     public static double sqrtHelp(double n, double ans){
-	if(((Math.abs(((ans*ans) - n)) / n) * 100) < .0000000001){
-	    return ans;
+	if(n == 0.0){
+	    return 0.0;
 	}
-	return sqrtHelp(n,((n / ans) + ans) / 2);
-    }
-
-    public static void main(String[]args){
-    System.out.println(sqrt(100));
-    System.out.println(sqrt(25));
-    System.out.println(sqrt(16));
-    System.out.println(sqrt(9));
-    System.out.println(sqrt(5));
-    System.out.println(sqrt(4));
+	if(Math.abs((ans*ans - n) / (n * 100)) < .000000000001){
+	    return ans;
+	}else{
+	    return sqrtHelp(n,((n / ans) + ans) / 2);
+	}
     }
 }

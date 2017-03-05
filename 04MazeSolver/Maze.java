@@ -27,9 +27,12 @@ public class Maze{
 		    endx = i;
 		    endy = k;
 		}
-		System.out.println("" + startx + starty + endx + endy);
 	    }
 	}
+	if(startx == 0 || starty == 0 || endx == 0 || endy == 0){
+	    throw new IllegalArgumentException("File does not contain a start or an end.");
+	}
+	animate = false;
     }
 
     private void readFile(String inputF) throws FileNotFoundException{
@@ -44,48 +47,81 @@ public class Maze{
 	    colnum = infdim.nextLine().length();
 	}
 	maze = new char[rownum][colnum];
-	System.out.println(rownum + " " + colnum);
-	for(int r = 0;r < rownum;r++){
-	    while(inf.hasNextLine()){
-		temp = inf.nextLine();
-		System.out.println(temp);
-		for(int i = 0;i < temp.length();i++){
-		    maze[r][i] = temp.charAt(i);
-		}
+	int r = 0;
+	while(inf.hasNextLine()){
+	    temp = inf.nextLine();
+	    for(int i = 0;i < temp.length();i++){
+		maze[r][i] = temp.charAt(i);
 	    }
+	    r++;
 	}
     }
 
     public boolean solve(){
-	solveH(0,0);
-	return true;
+	maze[startx][starty] = '@';
+	return solveH(startx,starty);
     }
 
     private boolean solveH(int startX,int startY){
-	return true;
+	if(animate){
+	    System.out.println("\033[2]\033[1;1H"+this);
+	    wait(20);
+	}
+	if(startX == endx && startY == endy){
+	    return true;
+	}
+	maze[startX][startY] = '@';
+	if(validMove(startX + 1, startY) && solveH(startX+1,startY)){
+	    return true;
+	}
+	if(validMove(startX, startY + 1) && solveH(startX,startY+1)){
+	    return true;
+	}
+	if(validMove(startX - 1, startY) && solveH(startX-1,startY)){
+	    return true;
+	}
+	if(validMove(startX, startY - 1) && solveH(startX,startY-1)){
+	    return true;
+	}
+	    maze[startX][startY] = '.';
+	    return false;
+    }
+    
+    private boolean validMove(int x,int y){
+	if(maze[x][y] == '#' || maze[x][y] == '.' || maze[x][y] == '@'){
+	    return false;
+	}
+	else{
+	    return true;
+	}
+    }
+    
+    public void clearTerminal(){
+	System.out.println("\033[2J\033[1;1H");
+    }
+    
+    public void setAnimate(boolean b){
+	animate = b;
     }
 
+    private void wait(int millis){
+	try{
+	    Thread.sleep(millis);
+	}
+	catch(InterruptedException e){
+	}
+    }
+    
     public String toString(){
 	String layout = "";
 	for(int i = 0; i < maze.length;i++){
 	    for(int k = 0; k < maze[0].length;k++){
 		layout += maze[i][k];
+		if(k == maze[0].length - 1){
+		    layout += "\n";
+		}
 	    }
 	}
 	return layout;
-    }
-    
-    public static void main(String[]args){
-	if(args.length > 1){
-	    throw new ArrayIndexOutOfBoundsException("Too many arguments. Input just one file");
-	}
-	if(args.length == 0){
-	    throw new ArrayIndexOutOfBoundsException("Please input a file");
-	}
-	Maze M = new Maze(args[0]);
-	System.out.println(M.toString());
-
-	//M.solve;
-	//M.toString();
     }
 }

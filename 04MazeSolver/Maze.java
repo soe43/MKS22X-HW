@@ -65,7 +65,7 @@ public class Maze{
     private boolean solveH(int startX,int startY){
 	if(animate){
 	    System.out.println("\033[2]\033[1;1H"+this);
-	    wait(20);
+	    wait(100);
 	}
 	if(startX == endx && startY == endy){
 	    return true;

@@ -96,7 +96,7 @@ public class USACO{
 	}	    	    
     }
     
-    //==========================================================================================
+    //=========================================================================================================================
     public int silver(String filename){
 	readFile(filename);
 	return silverH(r1,c1,seconds);
@@ -124,7 +124,10 @@ public class USACO{
     private int silverH(int startR,int startC, int remainingS){
         if(startR == r2 && startC == c2 && seconds == 0){
 	    solutions++;
+	    return false;
 	}else{
+	    return true;
+	}
 	    if(isValid(startR + 1, startC) && seconds > 0){
 		silverH(startR + 1,startC,remainingS - 1);
 	    }
@@ -136,8 +139,7 @@ public class USACO{
 	    }
 	    if(isValid(startR, startC - 1) && seconds > 0){
 		silverH(startR,startC - 1,remainingS - 1);
-	    }
-	}
+	    }	
 	return solutions;
     }
 
@@ -148,6 +150,9 @@ public class USACO{
     public static void main(String[] args){
 	USACO m = new USACO();
 	System.out.println(m.bronze("test.txt"));
+	System.out.println(m.bronze("test2.txt"));
+	System.out.println(m.bronze("test3.txt"));
+	System.out.println(m.bronze("test4.txt"));
     }
     
 }

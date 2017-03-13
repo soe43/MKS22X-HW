@@ -83,8 +83,8 @@ public class Maze{
 	if(validMove(startX, startY - 1) && solveH(startX,startY-1)){
 	    return true;
 	}
-	    maze[startX][startY] = '.';
-	    return false;
+	maze[startX][startY] = '.';
+	return false;
     }
     
     private boolean validMove(int x,int y){

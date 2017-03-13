@@ -11,6 +11,7 @@ public class USACO{
     //SILVER INSTANCE VARIABLES
     private int r1,c1,r2,c2,row,col,seconds,solutions;
     char[][] pasture;
+    int[][][] moveSet;
     
     //empty default constructor
     public USACO(){
@@ -98,49 +99,60 @@ public class USACO{
     
     //=========================================================================================================================
     public int silver(String filename){
-	readFile(filename);
-	return silverH(r1,c1,seconds);
+	try{
+	    File inf = new File(filename);
+	    Scanner scan = new Scanner(inf);
+	    row = Integer.parseInt(scan.next());
+	    col = Integer.parseInt(scan.next());
+	    seconds = Integer.parseInt(scan.next());
+	    pasture = new char[row][col];
+	    for (int i = 0;i < row;i++){
+		for(int k = 0;k < col;k++){
+		    System.out.println(""+ i + ","+ k);
+		    pasture[i][k] = scan.next().charAt(0);
+		}
+	    }
+	    r1 = Integer.parseInt(scan.next());
+	    c1 = Integer.parseInt(scan.next());
+	    r2 = Integer.parseInt(scan.next());
+	    c2 = Integer.parseInt(scan.next());
+	    pasture[r1][c1] = '@';
+	    silverH(r1,c1,seconds, true);
+	}catch(FileNotFoundException e){
+	    System.out.println("no file");
+	    System.exit(1);
+	}
+	    return solutions;
     }
 
     private void readFile(String filename){
-	Scanner scan = new Scanner(filename);
-	row = Integer.parseInt(scan.next());
-	col = Integer.parseInt(scan.next());
-	seconds = Integer.parseInt(scan.next());
-        pasture = new char[row][col];
-	String temp = "";
-	for (int i = 0;i < row;i++){
-	    for(int k = 0;k < col;k++){
-		temp = scan.next();
-		pasture[i][k] = temp.charAt(0);
-	    }
-	}
-	r1 = Integer.parseInt(scan.next());
-	c1 = Integer.parseInt(scan.next());
-	r2 = Integer.parseInt(scan.next());
-	c2 = Integer.parseInt(scan.next());
+
     }
 
-    private int silverH(int startR,int startC, int remainingS){
+    private boolean silverH(int startR,int startC, int remainingS, boolean checking){
         if(startR == r2 && startC == c2 && seconds == 0){
-	    solutions++;
-	    return false;
-	}else{
+	    if(checking){
+		solutions++;
+		return false;
+	    }else{
+		return true;
+	    }
+	}
+	pasture[startR][startC] = '@';
+	if(isValid(startR + 1, startC) && seconds > 0 && silverH(startR+1, startC, remainingS-1, true)){
 	    return true;
 	}
-	    if(isValid(startR + 1, startC) && seconds > 0){
-		silverH(startR + 1,startC,remainingS - 1);
-	    }
-	    if(isValid(startR, startC + 1) && seconds > 0){
-		silverH(startR,startC + 1,remainingS - 1);
-	    }
-	    if(isValid(startR - 1, startC) && seconds > 0){
-		silverH(startR - 1,startC,remainingS - 1);
-	    }
-	    if(isValid(startR, startC - 1) && seconds > 0){
-		silverH(startR,startC - 1,remainingS - 1);
-	    }	
-	return solutions;
+	if(isValid(startR, startC + 1) && seconds > 0 && silverH(startR, startC+1, remainingS-1, true)){
+	    return true;
+	}
+	if(isValid(startR - 1, startC) && seconds > 0 && silverH(startR-1, startC, remainingS-1, true)){
+	    return true;
+	}
+	if(isValid(startR, startC - 1) && seconds > 0 && silverH(startR, startC-1, remainingS-1, true)){
+	    return true;
+	}	
+        pasture[startR][startC] = '#';
+	return false;
     }
 
     private boolean isValid(int r, int c){
@@ -153,6 +165,10 @@ public class USACO{
 	System.out.println(m.bronze("test2.txt"));
 	System.out.println(m.bronze("test3.txt"));
 	System.out.println(m.bronze("test4.txt"));
+	System.out.println(m.silver("sTest.txt"));
+	System.out.println(m.silver("sTest2.txt"));
+	System.out.println(m.silver("sTest3.txt"));
+	System.out.println(m.silver("sTest4.txt"));
     }
     
 }

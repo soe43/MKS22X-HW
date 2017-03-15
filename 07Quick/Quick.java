@@ -4,20 +4,15 @@ public class Quick{
     
     private static int part(int[] data, int start, int end){
 	int left = start;
-	int right = end;
+	int right = end - 1;
 	Random r = new Random();
-	int pivot = r.nextInt(end - start);
-	int pivotValue = data[pivot];
-	System.out.println(pivotValue);
-	switchPos(data,pivot,right);
-	right--;
+	int pivot = start + r.nextInt(end - start);
+	int pivotValue = data[pivot];;
+	switchPos(data,pivot,end);
 	for(int i = start;i < end;i++){
 	    if(data[i] < pivotValue){
 		switchPos(data,i,left);
 		left++;
-	    }else{
-		switchPos(data,i,right);
-		right--;
 	    }
 	}
         switchPos(data,left,end);
@@ -43,6 +38,26 @@ public class Quick{
 	return layout;
     }
 
+    public static int quickselect(int[] data, int k){
+	return quickselectH(data,k,0,data.length-1);
+    }
+    
+    private static int quickselectH(int[] data, int k,int start,int end){
+	while(end > start){
+	    int pivot = part(data,start,end);
+	    if(k == part(data,start,end)){
+		return data[k];
+	    }
+	    else if(k > part(data,start,end)){
+		return quickselectH(data,k,pivot+1,end);
+	    } else {
+		return quickselectH(data,k,start,pivot-1);
+	    }
+	}
+	return data[k];
+    }
+
+    /*
     public static void main(String[] args){
 	Random r = new Random();
 	int[][] arys = new int[5][8];
@@ -53,10 +68,24 @@ public class Quick{
 	}
 	for(int i = 0; i < 5; i++){
 	    System.out.println(toString(arys[i]));
-	    System.out.println(part(arys[i],0,arys[i].length - 1));
-	    System.out.println(toString(arys[i]));
-	    System.out.println();
+	    System.out.println("5th Smallest: " + quickselect(arys[i],5));
+	    System.out.println();	    
+	}
+	int[] ary = {999,0,999,1,2,999,4,6};
+	for(int i = 0; i < ary.length;i++){
+	    if(i == 1){
+		System.out.println(""+i+"st Smallest: " +quickselect(ary,i));
+	    }
+	    if(i == 2){
+		System.out.println(""+i+"nd Smallest: " +quickselect(ary,i));
+	    }
+	    if(i == 3){
+		System.out.println(""+i+"rd Smallest: " +quickselect(ary,i));
+	    }
+	    else{
+		System.out.println(""+i+"th Smallest: " +quickselect(ary,i));
+	    }
 	}
     }
-
+    */
 }

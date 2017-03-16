@@ -57,7 +57,26 @@ public class Quick{
 	return data[k];
     }
 
-    /*
+    public static void quickSort(int[] ary){
+        for(int i = 0;i < ary.length;i++){
+	    int temp;
+	    int switchInt = quickselect(ary,i);
+	    temp = ary[i];
+	    ary[i] = switchInt;
+	    ary[findIndex(ary, switchInt)] = temp;
+	}
+    }
+
+    private static int findIndex(int[] ary, int k){
+	int index = 0;
+	for(int i = 0; i < ary.length; i++){
+	    if (ary[i] == k){
+		index = i;
+	    }
+	}
+	return index;
+    }
+
     public static void main(String[] args){
 	Random r = new Random();
 	int[][] arys = new int[5][8];
@@ -86,6 +105,26 @@ public class Quick{
 		System.out.println(""+i+"th Smallest: " +quickselect(ary,i));
 	    }
 	}
+	
+	int[] scrambled = {5,6,3,1,8,0};
+	System.out.println();
+	System.out.println(toString(scrambled));
+	quickSort(scrambled);
+	System.out.println("Sorted: \n" + toString(scrambled)); 
+	System.out.println();
+
+	int[][] scrambledArys = new int[10][10];
+	for(int i = 0;i < 10;i++){
+	    for(int k = 0;k < 10;k++){
+		scrambledArys[i][k] = r.nextInt(10);
+	    }
+	}
+	for(int i = 0; i < 10; i++){
+	    System.out.println(toString(scrambledArys[i]));
+	    quickSort(scrambledArys[i]);
+	    System.out.println("Sorted: \n" + toString(scrambledArys[i]));
+	    System.out.println();	    
+	}
     }
-    */
+   
 }

@@ -108,8 +108,7 @@ public class USACO{
 	    pasture = new char[row][col];
 	    for (int i = 0;i < row;i++){
 		for(int k = 0;k < col;k++){
-		    System.out.println(""+ i + ","+ k);
-		    pasture[i][k] = scan.next().charAt(0);
+		    pasture[i][k] = (scan.next()).charAt(0);
 		}
 	    }
 	    r1 = Integer.parseInt(scan.next());
@@ -157,18 +156,6 @@ public class USACO{
 
     private boolean isValid(int r, int c){
 	return (r >= 0 && r < pasture.length && c >= 0 && c < pasture[0].length && pasture[r][c] == '.');
-    }
-    //testsss
-    public static void main(String[] args){
-	USACO m = new USACO();
-	System.out.println(m.bronze("test.txt"));
-	System.out.println(m.bronze("test2.txt"));
-	System.out.println(m.bronze("test3.txt"));
-	System.out.println(m.bronze("test4.txt"));
-	System.out.println(m.silver("sTest.txt"));
-	System.out.println(m.silver("sTest2.txt"));
-	System.out.println(m.silver("sTest3.txt"));
-	System.out.println(m.silver("sTest4.txt"));
     }
     
 }

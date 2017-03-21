@@ -107,16 +107,16 @@ public class USACO{
 	    seconds = Integer.parseInt(scan.next());
 	    pasture = new char[row][col];
 	    for (int i = 0;i < row;i++){
+		String line = scan.next();
 		for(int k = 0;k < col;k++){
-		    pasture[i][k] = (scan.next()).charAt(0);
+		    pasture[i][k] = line.charAt(k);
 		}
 	    }
 	    r1 = Integer.parseInt(scan.next());
 	    c1 = Integer.parseInt(scan.next());
 	    r2 = Integer.parseInt(scan.next());
 	    c2 = Integer.parseInt(scan.next());
-	    pasture[r1][c1] = '@';
-	    silverH(r1,c1,seconds, true);
+	    silverH(seconds);
 	}catch(FileNotFoundException e){
 	    System.out.println("no file");
 	    System.exit(1);
@@ -124,10 +124,7 @@ public class USACO{
 	    return solutions;
     }
 
-    private void readFile(String filename){
-
-    }
-
+    /*
     private boolean silverH(int startR,int startC, int remainingS, boolean checking){
         if(startR == r2 && startC == c2 && seconds == 0){
 	    if(checking){
@@ -137,7 +134,6 @@ public class USACO{
 		return true;
 	    }
 	}
-	pasture[startR][startC] = '@';
 	if(isValid(startR + 1, startC) && seconds > 0 && silverH(startR+1, startC, remainingS-1, true)){
 	    return true;
 	}
@@ -153,11 +149,38 @@ public class USACO{
         pasture[startR][startC] = '#';
 	return false;
     }
+    */
+
+    private boolean silverH(int currentS){
+	moveSet = new int[row][col][seconds];
+	for(int i = 0;i < pasture.length;i++){
+	    for(int k = 0; k < pasture[0].length;k++){
+		if(pasture[i][k] == '.'){
+		    moveSet[i][k][0] = 0;
+		}else{
+		    moveSet[i][k][0] = -1;
+		}
+	    }
+	}
+	moveSet[r1][c1][0] = 1;
+	while(currentS < seconds){
+	    for(int i = 0;i < row;i++){
+		for(int k = 0; k < col;k++){
+		    
+		
+		    
+
 
     private boolean isValid(int r, int c){
 	return (r >= 0 && r < pasture.length && c >= 0 && c < pasture[0].length && pasture[r][c] == '.');
     }
     
+    public static void main(String[] args){
+	USACO m = new USACO();
+	System.out.println(m.silver("sTest.txt"));
+	System.out.println(m.silver("sTest2.txt"));
+	System.out.println(m.silver("sTest3.txt"));
+    }
 }
     
 

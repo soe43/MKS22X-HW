@@ -3,12 +3,21 @@ import java.util.*;
 public class Merge{
     
     public static void mergesort(int[] ary){
-	
-	if(ary.length == 1){
-	    return;
-	}
+       
     }
 
+    public static void mergesortH(int[] ary, int left, int right){
+	int middle = (left+right)/2;
+	int[] left = new int[middle-left];
+	int[] right = new int[right-middle];
+	for(int i = 0; i < left.length; i++){
+	    left[i] = ary[i];
+	}
+	for(int k = 0; k < right.length; k++){
+	    right[k] = ary[middle+k];
+	}
+	mergesortH(
+    
     //Precondition: Both arrays are sorted
     private static void merge(int[] ary1,int[] ary2, int[] merged){
 	int i = 0;

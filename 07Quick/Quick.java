@@ -4,18 +4,26 @@ public class Quick{
     
     private static int part(int[] data, int start, int end){
 	int left = start;
-	int right = end - 1;
+	int right = end-1;
 	Random r = new Random();
-	int pivot = start + ((r.nextInt(end - start) + r.nextInt(end - start) + r.(end - start)) / 3);
-	int pivotValue = data[pivot];;
-	switchPos(data,pivot,end);
-	for(int i = start;i < end;i++){
+	int pivot = start + ((r.nextInt(end - start) + r.nextInt(end - start)) / 2);
+	int pivotValue = data[pivot];
+	switchPos(data,pivot,left);
+	int i = left + 1;
+        while(i < right){
 	    if(data[i] < pivotValue){
-		switchPos(data,i,left);
 		left++;
+		i++;
+	    }
+	    if(data[i] > pivotValue){
+		switchPos(data,i,right);
+		right--;
+	    }
+	    else{
+		i++;
 	    }
 	}
-        switchPos(data,left,end);
+        switchPos(data,0,right);
 	return left;
     }
     
@@ -39,16 +47,16 @@ public class Quick{
     }
 
     public static int quickselect(int[] data, int k){
-	return quickselectH(data,k,0,data.length-1);
+	return quickselectH(data,k,0,data.length);
     }
     
     private static int quickselectH(int[] data, int k,int start,int end){
 	while(end > start){
 	    int pivot = part(data,start,end);
-	    if(k == part(data,start,end)){
+	    if(k == pivot){
 		return data[k];
 	    }
-	    else if(k > part(data,start,end)){
+	    else if(k > pivot){
 		return quickselectH(data,k,pivot+1,end);
 	    } else {
 		return quickselectH(data,k,start,pivot-1);
@@ -58,25 +66,11 @@ public class Quick{
     }
 
     public static void quickSort(int[] ary){
-
+	//quickSortH(ary,0,ary.length);
     }
 
     public static void quickSortH(int[] ary, int left, int right){
-	if(left < right){
-	    int p = part(ary,left,right);
-	    quickSortH(ary,p-1,right);
-	    quickSortH(ary,left,p+1);
-	}
-    }
-
-    private static int findIndex(int[] ary, int k){
-	int index = 0;
-	for(int i = 0; i < ary.length; i++){
-	    if (ary[i] == k){
-		index = i;
-	    }
-	}
-	return index;
+			      
     }
 
     public static void main(String[] args){
@@ -89,7 +83,8 @@ public class Quick{
 	}
 	for(int i = 0; i < 5; i++){
 	    System.out.println(toString(arys[i]));
-	    System.out.println("5th Smallest: " + quickselect(arys[i],5));
+	    System.out.println("0th Smallest: " + quickselect(arys[i],0));
+	    System.out.println(toString(arys[i]));
 	    System.out.println();	    
 	}
 	int[] ary = {999,0,999,1,2,999,4,6};
@@ -97,10 +92,10 @@ public class Quick{
 	    if(i == 1){
 		System.out.println(""+i+"st Smallest: " +quickselect(ary,i));
 	    }
-	    if(i == 2){
+	    else if(i == 2){
 		System.out.println(""+i+"nd Smallest: " +quickselect(ary,i));
 	    }
-	    if(i == 3){
+	    else if(i == 3){
 		System.out.println(""+i+"rd Smallest: " +quickselect(ary,i));
 	    }
 	    else{

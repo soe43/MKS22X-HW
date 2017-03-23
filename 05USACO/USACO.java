@@ -116,12 +116,12 @@ public class USACO{
 	    c1 = Integer.parseInt(scan.next());
 	    r2 = Integer.parseInt(scan.next());
 	    c2 = Integer.parseInt(scan.next());
-	    silverH(seconds);
 	}catch(FileNotFoundException e){
 	    System.out.println("no file");
 	    System.exit(1);
 	}
-	    return solutions;
+	silverH(0);
+	return solutions;
     }
 
     /*
@@ -151,35 +151,74 @@ public class USACO{
     }
     */
 
-    private boolean silverH(int currentS){
-	moveSet = new int[row][col][seconds];
+    private void silverH(int currentS){
+	moveSet = new int[seconds+2][row][col];
 	for(int i = 0;i < pasture.length;i++){
 	    for(int k = 0; k < pasture[0].length;k++){
 		if(pasture[i][k] == '.'){
-		    moveSet[i][k][0] = 0;
+		    for(int s = 0;s < seconds;s++){
+			moveSet[s][i][k] = 0;
+		    }
 		}else{
-		    moveSet[i][k][0] = -1;
+		    for(int s = 0;s < seconds;s++){
+			moveSet[s][i][k] = -1;
+		    }
 		}
 	    }
 	}
-	moveSet[r1][c1][0] = 1;
-	while(currentS < seconds){
+	moveSet[0][r1-1][c1-1] = 1;
+	while(currentS < seconds+1){
 	    for(int i = 0;i < row;i++){
 		for(int k = 0; k < col;k++){
-		    
-		
-		    
-
+		    if(moveSet[currentS][i][k] > 0){
+			if(isValid(i+1,k)){
+			    if(moveSet[currentS][i+1][k] == -1){
+			    }else{
+				moveSet[currentS + 1][i+1][k] += moveSet[currentS][i][k];
+			    }
+			}
+			if(isValid(i,k+1)){
+			    if(moveSet[currentS][i][k+1] == -1){
+			    }else{
+				moveSet[currentS + 1][i][k+1] += moveSet[currentS][i][k];
+			    }
+			}
+			if(isValid(i-1,k)){
+			    if(moveSet[currentS][i-1][k] == -1){
+			    }else{
+				moveSet[currentS + 1][i-1][k] += moveSet[currentS][i][k];
+			    }
+			}
+			if(isValid(i,k-1)){
+			    if(moveSet[currentS][i][k-1] == -1){
+			    }else{
+				moveSet[currentS + 1][i][k-1] += moveSet[currentS][i][k];
+			    }
+			}
+		    }
+		}
+	    }
+	    currentS++;
+	}
+        solutions =  moveSet[seconds][r2-1][c2-1];
+    }
+	    		    
+    public static String toString(int[][] ary){
+	String layout = "";
+	for(int i = 0;i < ary.length;i++){
+	    for(int k = 0;k < ary[0].length;k++){
+		layout += ary[i][k] + " ";
+		if(k == ary[0].length - 1){
+		    layout += "\n";
+		}
+	    }
+	}
+	return layout;
+    }
+	
 
     private boolean isValid(int r, int c){
 	return (r >= 0 && r < pasture.length && c >= 0 && c < pasture[0].length && pasture[r][c] == '.');
-    }
-    
-    public static void main(String[] args){
-	USACO m = new USACO();
-	System.out.println(m.silver("sTest.txt"));
-	System.out.println(m.silver("sTest2.txt"));
-	System.out.println(m.silver("sTest3.txt"));
     }
 }
     

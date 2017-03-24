@@ -6,10 +6,11 @@ public class Quick{
 	int left = start;
 	int right = end-1;
 	Random r = new Random();
-	int pivot = start + ((r.nextInt(end - start) + r.nextInt(end - start)) / 2);
+	int pivot = start + r.nextInt(end - start);
 	int pivotValue = data[pivot];
 	switchPos(data,pivot,left);
-	int i = left + 1;
+	left++;
+	int i = left;
         while(i < right){
 	    if(data[i] < pivotValue){
 		left++;
@@ -26,6 +27,16 @@ public class Quick{
         switchPos(data,0,right);
 	return left;
     }
+
+    private static int part(int[] data, int start, int end){
+	int left = start;
+	int right = end-1;
+	Random r = new Random;
+	int pivot = start + r.nextInt(end - start);
+	int pivVal = data[pivot];
+	switchPos(data, left, pivot);
+	left++; 
+	while(i <= right){
     
     private static void switchPos(int[] ary, int position1, int position2){
 	int temp = ary[position1];

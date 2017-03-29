@@ -27,11 +27,17 @@ public class MyLinkedList{
 	return layout;
     }
     
-    /* Implement Later
+
     public int get(int index){
-    
+	return getNthNode(index).value;
     }
-    */
+
+    public int set(int index,int newValue){
+	LNode a = getNthNode(index);
+	int temp = a.value;
+	getNthNode.value = newValue;
+	return temp;
+    }	
 
     private LNode getNthNode(int n){
 	if(n >= size() || n < 0){

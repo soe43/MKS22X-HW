@@ -8,7 +8,12 @@ public class MyLinkedList{
 	end = null;
 	size = 0;
     }
-    
+
+    public boolean add(int value){
+	add(size,value);
+	return true;
+    }
+
     public boolean add(int index, int value){
 	if(index < 0 || index > size+1){
 	    return false;
@@ -36,14 +41,17 @@ public class MyLinkedList{
 	}
 	else{
 	    LNode a = new LNode(value);
-	    LNode b = getNthNode(index);
-	    a.prev = b;
-	    a.next = b.next;
-	    b.next = a;
-	    b.next.prev = a;
-	    size++;
+	    addAfter(a,getNthNode(index));
 	    return true;
 	}   
+    }
+
+    private void addAfter(LNode location, LNode toBeAdded){
+	location.prev = toBeAdded;
+	location.next = toBeAdded.next;
+	toBeAdded.next = location;
+	toBeAdded.next.prev = location;
+	size++;
     }
 
     public int size(){
@@ -51,9 +59,13 @@ public class MyLinkedList{
     }
 
     public String toString(){
-	String layout = "[";
-	for(int i = 0;i < size;i++){
-	    //To be implemented later
+	String layout = "[ ";
+        int temp = size;
+	LNode a = start;
+	while(a != null){
+	    layout += a.value + " ";
+	    a = a.next;
+	    temp--;
 	}
 	layout += "]";
 	return layout;
@@ -67,7 +79,7 @@ public class MyLinkedList{
     public int set(int index,int newValue){
 	LNode a = getNthNode(index);
 	int temp = a.value;
-	getNthNode(index).value = newValue;
+        a.value = newValue;
 	return temp;
     }	
 
@@ -130,6 +142,18 @@ public class MyLinkedList{
 	    this.next = next;
 	    this.prev = prev;
 	}
+    }
+
+    public static void main(String[]args){
+	MyLinkedList a = new MyLinkedList();
+        a.add(0);
+	a.add(1);
+	a.add(2);
+	a.add(3);
+	a.add(4);
+	a.add(5);
+	
+	System.out.println(a.toString());
     }
 }
 	

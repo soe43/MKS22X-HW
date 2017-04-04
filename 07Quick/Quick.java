@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Quick{
-    
+    /*
     private static int part(int[] data, int start, int end){
 	int left = start;
 	int right = end-1;
@@ -27,17 +27,33 @@ public class Quick{
         switchPos(data,0,right);
 	return left;
     }
+    */
 
     private static int part(int[] data, int start, int end){
 	int left = start;
 	int right = end-1;
-	Random r = new Random;
+	Random r = new Random();
 	int pivot = start + r.nextInt(end - start);
 	int pivVal = data[pivot];
-	switchPos(data, left, pivot);
-	left++; 
+	switchPos(data, left, pivot); 
+	int i = left;
 	while(i <= right){
-    
+	    if(data[i] < pivVal){
+		left++;
+		i++;
+	    }
+	    if(data[i] > pivVal){
+		switchPos(data,i,right);
+		right--;
+	    }
+	    else{
+		i++;
+	    }
+	}
+	switchPos(data,0,right);
+	return right;
+    }
+	
     private static void switchPos(int[] ary, int position1, int position2){
 	int temp = ary[position1];
 	ary[position1] = ary[position2];
@@ -94,7 +110,7 @@ public class Quick{
 	}
 	for(int i = 0; i < 5; i++){
 	    System.out.println(toString(arys[i]));
-	    System.out.println("0th Smallest: " + quickselect(arys[i],0));
+	    System.out.println("1st Smallest: " + quickselect(arys[i],1));
 	    System.out.println(toString(arys[i]));
 	    System.out.println();	    
 	}

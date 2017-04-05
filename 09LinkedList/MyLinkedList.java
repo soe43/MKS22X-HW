@@ -1,4 +1,6 @@
-public class MyLinkedList{
+import java.util.*;
+
+public class MyLinkedList implements Iterable{
     private LNode start;
     private LNode end;
     private int size;
@@ -96,6 +98,19 @@ public class MyLinkedList{
 	}
     }	
 
+    public int indexOf(int value){
+	int i = 0;
+	LNode a = start;
+	while(i < size){
+	    if(a.value == value){
+		return i;
+	    }
+	    i++;
+	    a = a.next;
+	}
+	return -1;
+    }
+		   
     public int remove(int index){
 	if(index == 0){
 	    int temp = start.value;
@@ -160,6 +175,10 @@ public class MyLinkedList{
 	return a;
     }	    
 
+    public Iterator<Integer> iterator(){
+        return new Iterator<Integer>();
+    }
+    
     private class LNode{
 	public int value;
 	private LNode next;
@@ -177,6 +196,30 @@ public class MyLinkedList{
 	    this.prev = prev;
 	}
     }
+
+    private class Iterator<Integer>{
+	private LNode begin;
+	private LNode current;
+	
+	public Iterator(){
+
+	} 
+
+	public boolean hasNext(){
+
+	}
+
+	public Integer next(){
+
+	}
+
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+    }
+    
+}
+
     /*
     public static void main(String[]args){
 	MyLinkedList a = new MyLinkedList();
@@ -214,7 +257,10 @@ public class MyLinkedList{
 	System.out.println(a.get(4));
 	System.out.println(a.size());
 	System.out.println(a.get(8));
+	System.out.println(a.indexOf(1));
+	a.set(1,9);
+	System.out.println(a.indexOf(6));
     }
-    */
-}
+  */
+
 	

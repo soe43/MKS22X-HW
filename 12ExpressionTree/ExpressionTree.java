@@ -31,7 +31,7 @@ public class ExpressionTree{
 	  return getValue() + "";
       }
       else{
-	  output +=  getLeft().toStringPostfix() + " " + getRight().toStringPostfix() + getOp();
+	  output +=  getLeft().toStringPostfix() + " " + getRight().toStringPostfix() + " " + getOp();
       }
       return output;
   }

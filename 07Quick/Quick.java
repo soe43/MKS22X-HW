@@ -28,9 +28,14 @@ public class Quick{
 		i++;
 	    }
 	}
-	switchPos(data,0,right);
-	System.out.println(i);
-	return i;
+	if(data[0] < data[1]){
+	    return i;
+	}
+	else{
+	switchPos(data,0,right-1);
+	System.out.println(right-1);
+	return (right-1);
+	}
     }
 
     private static void switchPos(int[] ary, int position1, int position2){
@@ -62,13 +67,13 @@ public class Quick{
 
     public static void main(String[]args){
 	Random r = new Random();
-	int[][] arys = new int[100][8];
-	for(int i = 0;i < 100;i++){
+	int[][] arys = new int[10][8];
+	for(int i = 0;i < 10;i++){
 	    for(int k = 0;k < 8;k++){
 		arys[i][k] = r.nextInt(50);
 	    }
 	}
-	for(int i = 0;i < 100; i++){
+	for(int i = 0;i < 10; i++){
 	    System.out.println(toString(arys[i]));
 	    part(arys[i]);
 	    System.out.println(toString(arys[i]));

@@ -7,6 +7,8 @@ public class MyHeap{
     // construct empty max heap
     public MyHeap(){
 	myHeap = new ArrayList<String>();
+	modifier = 1;
+	myHeap.add("");
     }
     
     // true: construct empty max heap, false: construct empty min heap.
@@ -14,26 +16,40 @@ public class MyHeap{
 	if(maxmin){
 	    //make max-heap
 	    myHeap = new ArrayList<String>();
+	    myHeap.add("");
 	    modifier = 1;
 	}
 	else{
 	    //make min-heap
 	    myHeap = new ArrayList<String>();
+	    myHeap.add("");
 	    modifier = -1;
 	}
    }
  
     
     //Public Methods
-    public void add(String s){}
+    public void add(String s){
+	myHeap.add(s);
+	pushUp(myHeap.lastIndexOf(s));
+	System.out.println(myHeap.toString());
+    }
     
-    public String remove(){}
+    public String remove(){
+	String temp = myHeap.get(1); 
+	myHeap.remove(1);
+	swap(myHeap.size() - 1,1);
+	pushDown(1);
+	return temp;
+    }
     
-    public String peek(){}
+    public String peek(){
+	return myHeap.get(1);
+    }
 
     //Private Methods
     private int parent(int pos){
-	return pos / 2;
+	return (pos) / 2;
     }
     
     private int rChild(int pos){
@@ -44,9 +60,6 @@ public class MyHeap{
 	return 2*pos;
     }
 
-    private boolean isChild(int pos){
-    }
-
     private void swap(int startS , int switchS){
 	String temp = myHeap.get(startS);
 	myHeap.set(startS,myHeap.get(switchS));
@@ -54,22 +67,41 @@ public class MyHeap{
     }
 
     private void pushUp(int pos){
-	if(myHeap.get(parent(pos)).compareTo(myHeap.get(pos)) < 0){
+	if(myHeap.get(parent(pos)).compareTo(myHeap.get(pos))*modifier < 0){
 	    swap(parent(pos),pos);
 	    pushUp(parent(pos));
 	}
     }
 
     private void pushDown(int pos){
-	if(myHeap.get(lChild(pos)).compareTo(myHeap.get(pos)) < 0){
+	if(myHeap.get(lChild(pos)).compareTo(myHeap.get(pos))*modifier > 0){
 	    swap(pos,lChild(pos));
 	    pushDown(lChild(pos));
 	}
-	if(myHeap.get(rChild(pos)).compareTo(myHeap.get(pos)) < 0){
+	if(myHeap.get(rChild(pos)).compareTo(myHeap.get(pos))*modifier > 0){
 	    swap(pos,rChild(pos));
 	    pushDown(rChild(pos));
 	}
     }
+
+    public String toString(){
+	String out = "";
+	for(String s : myHeap){
+	    out += s + " ";
+	} 
+	System.out.println();
+	return out;
+    }
+
+    public static void main(String[]args){
+	MyHeap h = new MyHeap();
+	String[] s = {"a", "b", "c", "d", "e", "f"};
+	for(int i = 1;i < h.size() - 1;i++){
+	    h.add(h.get(i);
+	}
+	System.out.println(h.toString());
+    }
+	    
 }
 
  

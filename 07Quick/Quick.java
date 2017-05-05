@@ -33,8 +33,12 @@ public class Quick{
 	}
 	else{
 	switchPos(data,0,right-1);
-	System.out.println(right-1);
+	if(data[right-1] > data[right]){
+	    switchPos(data,right-1,right);
+	    return right;
+	}else{
 	return (right-1);
+	}
 	}
     }
 
@@ -52,6 +56,32 @@ public class Quick{
 	return 0;
     }
 
+    public static void quickSort(int[] data){
+	quickSortH(data,0,data.length);
+    }
+
+    private static void quickSortH(int[] data,int start,int end){
+	if(start <= end){
+	    return;
+	}
+	int left = start;
+	int right = end;
+	int i = left;
+	while(i <= right){
+	    if(data[i] < data[start]){
+		switchPos(data,left++,i++);
+	    }
+	    else if(data[i] > data[start]){
+		switchPos(data, i , right--);
+	    }
+	    else{
+		i++;
+	    }
+	}
+	quickSortH(data,start,left-1);
+	quickSortH(data,right+1,end);
+    }
+   
     public static String toString(int[] toPrint){
 	String layout = "[";
 	for(int i = 0; i < toPrint.length;i++){
@@ -78,6 +108,8 @@ public class Quick{
 	    part(arys[i]);
 	    System.out.println(toString(arys[i]));
 	    System.out.println("");
+	    quickSort(arys[i]);
+	    System.out.println(toString(arys[i]));
 	}
     }
 }

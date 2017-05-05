@@ -3,20 +3,31 @@ import java.util.*;
 public class Merge{
     
     public static void mergesort(int[] ary){
-       
+	mergesortH(ary,0,ary.length-1);
     }
-
+    
     public static void mergesortH(int[] ary, int left, int right){
-	int middle = (left+right)/2;
-	int[] left = new int[middle-left];
-	int[] right = new int[right-middle];
-	for(int i = 0; i < left.length; i++){
-	    left[i] = ary[i];
+	if(ary.length > 1){
+	    int m = ary.length/2;
+	    int[] first = new int[m];
+	    int[] second = new int[ary.length-m];
+	    int c1 = 0;
+	    for(int i = 0;i < m;i++){
+		first[c1] = ary[i];
+		c1++;
+	    }
+	    int c2 = 0;
+	    for(int i = m;i<ary.length;i++){
+		second[c2] = ary[i];
+		c2++;
+	    }
+	    
+	    mergesortH(first,left,m);
+	    mergesortH(second,m+1,right);
+
+	    merge(first,second,ary);
 	}
-	for(int k = 0; k < right.length; k++){
-	    right[k] = ary[middle+k];
-	}
-	mergesortH(
+    }
     
     //Precondition: Both arrays are sorted
     private static void merge(int[] ary1,int[] ary2, int[] merged){
@@ -54,7 +65,7 @@ public class Merge{
 	}
 	return layout;
     }
-  
+    /*
     //testing  
     public static void main(String[] args){
 	int[] ary1 = new int[10];
@@ -67,12 +78,16 @@ public class Merge{
 	for(int i = 0; i < 10;i++){
 	    ary2[i] = r.nextInt(100);
 	}
-	Arrays.sort(ary1);
-	Arrays.sort(ary2);
+	System.out.println(toString(ary1));	
+	System.out.println(toString(ary2));
+	mergesort(ary1);
+	mergesort(ary2);
 	merge(ary1,ary2,ary3);
 	System.out.println(toString(ary1));	
 	System.out.println(toString(ary2));
 	System.out.println(toString(ary3));
     }
+    */
+}
     	
     

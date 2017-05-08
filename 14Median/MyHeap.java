@@ -1,49 +1,51 @@
 import java.util.ArrayList;
 
 public class MyHeap{
-    private ArrayList<String> myHeap;
+    private ArrayList<Integer> myHeap;
     private int modifier;
 
     // construct empty max heap
     public MyHeap(){
-	myHeap = new ArrayList<String>();
+	myHeap = new ArrayList<Integer>();
 	modifier = 1;
-	myHeap.add("");
+	myHeap.add(0);
     }
     
     // true: construct empty max heap, false: construct empty min heap.
     public MyHeap(boolean maxmin){  
 	if(maxmin){
 	    //make max-heap
-	    myHeap = new ArrayList<String>();
-	    myHeap.add("");
+	    myHeap = new ArrayList<Integer>();
+	    myHeap.add(0);
 	    modifier = 1;
 	}
 	else{
 	    //make min-heap
-	    myHeap = new ArrayList<String>();
-	    myHeap.add("");
+	    myHeap = new ArrayList<Integer>();
+	    myHeap.add(0);
 	    modifier = -1;
 	}
    }
  
     
     //Public Methods
-    public void add(String s){
+    public void add(Integer s){
 	myHeap.add(s);
+	myHeap.set(0,myHeap.get(0) + 1);
 	pushUp(myHeap.lastIndexOf(s));
 	System.out.println(myHeap.toString());
     }
     
-    public String remove(){
-	String temp = myHeap.get(1); 
+    public Integer remove(){
+	Integer temp = myHeap.get(1); 
 	myHeap.remove(1);
 	swap(myHeap.size() - 1,1);
 	pushDown(1);
+	myHeap.set(0,myHeap.get(0) + 1);
 	return temp;
     }
     
-    public String peek(){
+    public Integer peek(){
 	return myHeap.get(1);
     }
 
@@ -61,7 +63,7 @@ public class MyHeap{
     }
 
     private void swap(int startS , int switchS){
-	String temp = myHeap.get(startS);
+	Integer temp = myHeap.get(startS);
 	myHeap.set(startS,myHeap.get(switchS));
 	myHeap.set(switchS,temp);
     }
@@ -77,6 +79,9 @@ public class MyHeap{
     }
 
     private void pushDown(int pos){
+	if(lChild(pos) > myHeap.size() || rChild(pos) > myHeap.size()){
+	    return;
+	}
 	if(myHeap.get(lChild(pos)).compareTo(myHeap.get(pos))*modifier > 0){
 	    swap(pos,lChild(pos));
 	    pushDown(lChild(pos));
@@ -86,23 +91,26 @@ public class MyHeap{
 	    pushDown(rChild(pos));
 	}
     }
-
+    
     public String toString(){
 	String out = "";
-	for(String s : myHeap){
+	for(Integer s : myHeap){
 	    out += s + " ";
 	} 
 	System.out.println();
 	return out;
     }
+    
 
     public static void main(String[]args){
 	MyHeap h = new MyHeap();
-	String[] s = {"a", "b", "c", "d", "e", "f"};
-	for(int i = 1;i < h.size() - 1;i++){
-	    h.add(h.get(i));
+	Integer[] s = {1, 2, 3, 4, 5, 6};
+	for(int i = 0;i < s.length - 1;i++){
+	    h.add(s[i]);
 	}
-	System.out.println(h.toString());
+	for(int i = 0;i < h.myHeap.size();i++){
+	    h.remove();
+	}
     }
 	    
 }

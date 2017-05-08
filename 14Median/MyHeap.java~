@@ -67,9 +67,6 @@ public class MyHeap{
     }
 
     private void pushUp(int pos){
-	if(pos == 1){
-	    return;
-	}
 	if(myHeap.get(parent(pos)).compareTo(myHeap.get(pos))*modifier < 0){
 	    swap(parent(pos),pos);
 	    pushUp(parent(pos));
@@ -100,7 +97,7 @@ public class MyHeap{
 	MyHeap h = new MyHeap();
 	String[] s = {"a", "b", "c", "d", "e", "f"};
 	for(int i = 1;i < h.size() - 1;i++){
-	    h.add(h.get(i));
+	    h.add(h.get(i);
 	}
 	System.out.println(h.toString());
     }

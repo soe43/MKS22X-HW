@@ -1,0 +1,35 @@
+public class RunningMedian(){
+    private MyHeap big;
+    private MyHeap small;
+
+    public RunningMedian(){
+	big = new MyHeap(true);
+	small = new MyHeap(false);
+    }
+
+    public void add(int a){
+	if(big.getSize() == small.getSize()){
+	    big.add(a);
+	}
+	else if(big.getSize() - small.getSize() >= 1){
+	    small.add(a);
+	}
+	else{
+	    big.add(a);
+	}
+    }
+
+    public double getMedian(){
+	if(big.getSize() - small.getSize() == 1){
+	    return big.peek();
+	}
+	else if(big.getSize() - small.getSize() == -1){
+	    return small.peek();
+	}
+	else{
+	    return (big.peek() + small.peek())/2
+	
+    }
+
+}
+	

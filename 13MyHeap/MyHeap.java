@@ -36,9 +36,12 @@ public class MyHeap{
     }
     
     public String remove(){
+	if(myHeap.size() == 1){
+	    return "";
+	}
 	String temp = myHeap.get(1); 
-	myHeap.remove(1);
-	swap(myHeap.size() - 1,1);
+	swap(1,myHeap.size() - 1);
+	myHeap.remove(myHeap.size()-1);
 	pushDown(1);
 	return temp;
     }
@@ -77,10 +80,14 @@ public class MyHeap{
     }
 
     private void pushDown(int pos){
+	if(lChild(pos) >= myHeap.size() || rChild(pos) >= myHeap.size()){
+	    return;
+	}
 	if(myHeap.get(lChild(pos)).compareTo(myHeap.get(pos))*modifier > 0){
 	    swap(pos,lChild(pos));
 	    pushDown(lChild(pos));
 	}
+        
 	if(myHeap.get(rChild(pos)).compareTo(myHeap.get(pos))*modifier > 0){
 	    swap(pos,rChild(pos));
 	    pushDown(rChild(pos));
@@ -92,18 +99,24 @@ public class MyHeap{
 	for(String s : myHeap){
 	    out += s + " ";
 	} 
-	System.out.println();
 	return out;
     }
-
+    /*
     public static void main(String[]args){
 	MyHeap h = new MyHeap();
-	String[] s = {"a", "b", "c", "d", "e", "f"};
-	for(int i = 1;i < h.size() - 1;i++){
-	    h.add(h.get(i));
+	String[] s = {"a", "b", "c", "d"};
+	for(int i = 0;i < s.length;i++){
+	    h.add(s[i]);
 	}
 	System.out.println(h.toString());
+	System.out.println();
+	for(int i = 0; i < h.myHeap.size()+1;i++){
+	    System.out.println(h.toString());
+	    System.out.println(h.remove());
+	    System.out.println(h.toString());
+	}
     }
+    */
 	    
 }
 

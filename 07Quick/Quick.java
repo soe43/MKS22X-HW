@@ -7,6 +7,9 @@ public class Quick{
     }
     
     private static int part(int[] data, int start, int end){
+	if(data.length == 0){
+	    return 0;
+	}
 	Random r = new Random();
 	int pivot = start + r.nextInt(end - start);
 	int pivVal = data[pivot];
@@ -56,11 +59,14 @@ public class Quick{
 	return data[start];
     }
 
-    public static void quickSort(int[] data){
+    public static void quicksort(int[] data){
 	quickSortH(data,0,data.length-1);
     }
 
     private static void quickSortH(int[] data,int start,int end){
+	if(data.length <= 1){
+	    return;
+	}
 	if(start < end){
 	    int piv = part(data,start,end);
 	    quickSortH(data,start,piv -1);

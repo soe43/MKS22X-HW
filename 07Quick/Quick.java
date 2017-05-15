@@ -3,83 +3,69 @@ import java.util.*;
 public class Quick{
 
     private static int part(int[]data){
-	return part(data,0,data.length);
+	return part(data,0,data.length-1);
     }
     
     private static int part(int[] data, int start, int end){
 	Random r = new Random();
 	int pivot = start + r.nextInt(end - start);
 	int pivVal = data[pivot];
-	System.out.println(pivot+","+pivVal);
-	switchPos(data,pivot,start);
-	int left = start + 1;
-	int right = end-1;
-	int i = left;
-	while(left < right){
+        swap(data,pivot,end);
+	int i = start;
+	int lt = start;
+	int rt = end-1;
+	while(i <= rt){
 	    if(data[i] < pivVal){
-		left++;
+		swap(data,lt,i);
 		i++;
+		lt++;
 	    }
 	    else if(data[i] > pivVal){
-		switchPos(data,i,right);
-		right--;
+		swap(data,i,rt);
+		rt--;
 	    }
 	    else{
 		i++;
 	    }
 	}
-	if(data[0] < data[1]){
-	    return i;
-	}
-	else{
-	switchPos(data,0,right-1);
-	if(data[right-1] > data[right]){
-	    switchPos(data,right-1,right);
-	    return right;
-	}else{
-	return (right-1);
-	}
-	}
+	swap(data,end,i);
+	return i;
     }
 
-    private static void switchPos(int[] ary, int position1, int position2){
+    private static void swap(int[] ary, int position1, int position2){
 	int temp = ary[position1];
 	ary[position1] = ary[position2];
 	ary[position2] = temp;
     }
-
+    
     public static int quickselect(int[] data, int k){
-	return quickselectH(data,k,0,data.length);
-    }
-
-    public static int quickselectH(int[] data, int k, int start, int end){
-	return 0;
+	int start = 0;
+	int end = data.length - 1;
+	while(start < end){
+	    int piv = part(data,start,end);
+	    if(piv < k){
+		start = piv + 1;
+	    }
+	    else if(piv > k){
+		end = piv -1 ;
+	    }
+	    else{
+		return data[piv];
+	    }
+	}	    
+	return data[start];
     }
 
     public static void quickSort(int[] data){
-	quickSortH(data,0,data.length);
+	quickSortH(data,0,data.length-1);
     }
 
     private static void quickSortH(int[] data,int start,int end){
-	if(start <= end){
-	    return;
+	if(start < end){
+	    int piv = part(data,start,end);
+	    quickSortH(data,start,piv -1);
+	    quickSortH(data,piv+1,end);
 	}
-	int left = start;
-	int right = end;
-	int i = left;
-	while(i <= right){
-	    if(data[i] < data[start]){
-		switchPos(data,left++,i++);
-	    }
-	    else if(data[i] > data[start]){
-		switchPos(data, i , right--);
-	    }
-	    else{
-		i++;
-	    }
-	}
-	quickSortH(data,start,left-1);
-	quickSortH(data,right+1,end);
     }
    
     public static String toString(int[] toPrint){
@@ -94,22 +80,42 @@ public class Quick{
 	layout+="]";
 	return layout;
     }
-
+    /*
     public static void main(String[]args){
+	System.out.println("PARTITION TEST");
 	Random r = new Random();
-	int[][] arys = new int[10][8];
+	int[][] arys = new int[10][20];
 	for(int i = 0;i < 10;i++){
-	    for(int k = 0;k < 8;k++){
+	    for(int k = 0;k < 20;k++){
 		arys[i][k] = r.nextInt(50);
 	    }
 	}
 	for(int i = 0;i < 10; i++){
+	    System.out.println();
 	    System.out.println(toString(arys[i]));
-	    part(arys[i]);
+	    System.out.println(part(arys[i]));
 	    System.out.println(toString(arys[i]));
 	    System.out.println("");
 	    quickSort(arys[i]);
 	    System.out.println(toString(arys[i]));
 	}
+	System.out.println();
+	System.out.println("QUICKSELECT TEST");
+	int[] ary = {999,0,999,1,2,999,4,6};
+	for(int i = 0; i < ary.length;i++){
+	    if(i == 1){
+		System.out.println(""+i+"st Smallest: " +quickselect(ary,i));
+	    }
+	    if(i == 2){
+		System.out.println(""+i+"nd Smallest: " +quickselect(ary,i));
+	    }
+	    if(i == 3){
+		System.out.println(""+i+"rd Smallest: " +quickselect(ary,i));
+	    }
+	    else{
+		System.out.println(""+i+"th Smallest: " +quickselect(ary,i));
+	    }
+	}
     }
+    */
 }

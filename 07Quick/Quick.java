@@ -64,12 +64,12 @@ public class Quick{
     }
 
     private static void quickSortH(int[] data,int start,int end){
-	if(data.length <= 1){
+	if(data.length == 0){
 	    return;
 	}
 	if(start < end){
 	    int piv = part(data,start,end);
-	    quickSortH(data,start,piv -1);
+	    quickSortH(data,start,piv-1);	
 	    quickSortH(data,piv+1,end);
 	}
     }

@@ -20,12 +20,17 @@ public class Location implements Comparable<Location>{
 	return distToGoal;
     }
 
+    private int calcDist(Location other){
+	return Math.abs(row - other.row)+Math.abs(col - other.col);
+    }
+    
     public int compareTo(Location other){
 	if(aStar){
 	    return (this.distToStart + this.distToGoal) - (other.distToStart + other.distToGoal);
 	}
 	else{
-	    
+	    return this.distToGoal - other.distToGoal;
 	}
     }
+
 }

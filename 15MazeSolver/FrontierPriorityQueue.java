@@ -1,4 +1,10 @@
 public class FrontierPriorityQueue implements Frontier{
-    private LinkedList< location
+    private PriorityQueue pq;
+
+    public void add(Location a){
+    }
+
+    public Location next(){
+    }
 
 }

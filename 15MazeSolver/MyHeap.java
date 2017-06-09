@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class MyHeap<Location>{
+public class MyHeap{
     private ArrayList<Location> myHeap;
     private int modifier;
 
@@ -16,13 +16,13 @@ public class MyHeap<Location>{
 	if(maxmin){
 	    //make max-heap
 	    myHeap = new ArrayList<Location>();
-	    myHeap.add(new Location(-1,-1,null,0,0,false));
+	    myHeap.add(null);
 	    modifier = 1;
 	}
 	else{
 	    //make min-heap
-	    myHeap = new ArrayList<Location>();
-	    myHeap.add(new Location(-1,-1,null,0,0,false));
+	    myHeap = new ArrayList<Location>();;
+	    myHeap.add(null);
 	    modifier = -1;
 	}
    }
@@ -39,7 +39,6 @@ public class MyHeap<Location>{
 	swap(myHeap.size() - 1,1);
 	myHeap.remove(myHeap.size() - 1);
 	pushDown(1);
-	myHeap.set(0,myHeap.get(0) + 1);
 	return temp;
     }
     

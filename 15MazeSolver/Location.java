@@ -2,7 +2,7 @@ public class Location implements Comparable<Location>{
     private int row,col,distToGoal,distToStart;
     private Location previous;
     private boolean aStar;
-
+    
     public Location(int r, int c, Location previous, int distToStart, int distToGoal, boolean aStar){
 	row = r;
 	col = c;
@@ -20,12 +20,20 @@ public class Location implements Comparable<Location>{
 	return distToGoal;
     }
 
+    public Location getPrevious(){
+	return previous;
+    }
+
+    public boolean getAStar(){
+	return aStar;
+    }
+    
     public int compareTo(Location other){
-	if(aStar){
+	if(other.getAStar()){
 	    return (this.distToStart + this.distToGoal) - (other.distToStart + other.distToGoal);
 	}
 	else{
-	    
+	    return this.distToGoal - other.distToGoal;
 	}
     }
 }

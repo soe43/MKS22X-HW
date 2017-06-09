@@ -1,9 +1,15 @@
 public class PriorityQueue{
-    private MyHeap<Location> heap;
+    private MyHeap pq;
 
     public PriorityQueue(){
-	heap = new MyHeap(false);
+	pq = new MyHeap(false);
     }
 
-    public void add(Location a){}
+    public void add(Location l){
+	pq.add(l);
+    }
+
+    public Location remove(){
+	return pq.remove();
+    }
 }

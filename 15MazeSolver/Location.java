@@ -27,6 +27,14 @@ public class Location implements Comparable<Location>{
     public boolean getAStar(){
 	return aStar;
     }
+
+    public int row(){
+	return row;
+    }
+
+    public int col(){
+	return col;
+    }
     
     public int compareTo(Location other){
 	if(other.getAStar()){
@@ -35,5 +43,9 @@ public class Location implements Comparable<Location>{
 	else{
 	    return this.distToGoal - other.distToGoal;
 	}
+    }
+
+    public String toString(){
+	return ""+row+","+col;
     }
 }
